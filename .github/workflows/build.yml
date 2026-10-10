@@ -6,13 +6,9 @@ on:
       - main
       - master
   pull_request:
-    paths-ignore:
-      # The diagram PRs this workflow opens hold nothing to build.
-      - 'docs/**'
 
 permissions:
   contents: write
-  pull-requests: write
   id-token: write
 
 jobs:
@@ -35,8 +31,8 @@ jobs:
 
   schema-diagram:
     needs: build
-    # Drawn from the main branch only; a PR build is not the place to open another PR from.
-    if: github.event_name == 'push'
+    # The diagram is committed to the pull request that changed the schema, so it is reviewed with it.
+    if: github.event_name == 'pull_request'
     runs-on: ubuntu-latest
 
     steps:
@@ -51,4 +47,3 @@ jobs:
           migration-type: FLYWAY
           database-type: POSTGRESQL
           database-version: '18'
-          github-token: ${{ secrets.GITHUB_TOKEN }}
