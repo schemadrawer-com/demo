@@ -40,7 +40,7 @@ jobs:
         uses: actions/checkout@v5
 
       - name: Generate schema diagram
-        uses: schemadrawer-com/action@v1
+        uses: schemadrawer-com/action@v2
         with:
           sql-directory: migrations
           output-path: docs/schema-diagram.svg
