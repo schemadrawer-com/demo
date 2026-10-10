@@ -1,0 +1,54 @@
+name: Maven Build
+
+on:
+  push:
+    branches:
+      - main
+      - master
+  pull_request:
+    paths-ignore:
+      # The diagram PRs this workflow opens hold nothing to build.
+      - 'docs/**'
+
+permissions:
+  contents: write
+  pull-requests: write
+  id-token: write
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v5
+
+      - name: Set up JDK 25
+        uses: actions/setup-java@v5
+        with:
+          distribution: temurin
+          java-version: '25'
+          cache: maven
+
+      - name: Build with Maven
+        run: mvn --batch-mode clean verify
+
+  schema-diagram:
+    needs: build
+    # Drawn from the main branch only; a PR build is not the place to open another PR from.
+    if: github.event_name == 'push'
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout source
+        uses: actions/checkout@v5
+
+      - name: Generate schema diagram
+        uses: schemadrawercom/action@v1
+        with:
+          sql-directory: migrations
+          output-path: docs/schema-diagram.svg
+          migration-type: FLYWAY
+          database-type: POSTGRESQL
+          database-version: '18'
+          github-token: ${{ secrets.GITHUB_TOKEN }}
