@@ -47,3 +47,5 @@ jobs:
           migration-type: FLYWAY
           database-type: POSTGRESQL
           database-version: '18'
+          # A token of our own, so that the diagram commit is ours and its checks run without approval.
+          github-token: ${{ secrets.SCHEMADRAWER_TOKEN }}
