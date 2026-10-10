@@ -1,1 +1,1 @@
-ALTER TABLE visits ADD COLUMN notes TEXT;
+ALTER TABLE visitor ADD COLUMN notes TEXT;

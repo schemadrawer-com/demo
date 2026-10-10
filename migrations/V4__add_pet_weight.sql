@@ -1,0 +1,1 @@
+ALTER TABLE pets ADD COLUMN weight_kg NUMERIC(5, 2);
