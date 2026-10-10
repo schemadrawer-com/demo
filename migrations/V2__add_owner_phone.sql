@@ -1,0 +1,1 @@
+ALTER TABLE owners ADD COLUMN phone VARCHAR(20);
