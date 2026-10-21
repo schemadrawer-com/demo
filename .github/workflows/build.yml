@@ -8,7 +8,8 @@ on:
   pull_request:
 
 permissions:
-  contents: write
+  contents: read
+  pull-requests: write
   id-token: write
 
 jobs:
@@ -29,9 +30,9 @@ jobs:
       - name: Build with Maven
         run: mvn --batch-mode clean verify
 
-  schema-diagram:
+  schema-diff:
     needs: build
-    # The diagram is committed to the pull request that changed the schema, so it is reviewed with it.
+    # What the pull request changes in the schema, drawn and posted as a comment on it.
     if: github.event_name == 'pull_request'
     runs-on: ubuntu-latest
 
@@ -39,13 +40,10 @@ jobs:
       - name: Checkout source
         uses: actions/checkout@v5
 
-      - name: Generate schema diagram
-        uses: schemadrawer-com/action@v1
+      - name: Comment with the schema changes
+        uses: schemadrawer-com/action@v3
         with:
           sql-directory: migrations
-          output-path: docs/schema-diagram.svg
           migration-type: FLYWAY
           database-type: POSTGRESQL
           database-version: '18'
-          # A token of our own, so that the diagram commit is ours and its checks run without approval.
-          github-token: ${{ secrets.SCHEMADRAWER_TOKEN }}
