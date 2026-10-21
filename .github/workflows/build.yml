@@ -38,10 +38,10 @@ jobs:
 
     steps:
       - name: Checkout source
-        uses: actions/checkout@v1
+        uses: actions/checkout@v5
 
       - name: Comment with the schema changes
-        uses: schemadrawer-com/action@v3
+        uses: schemadrawer-com/action@v1
         with:
           sql-directory: migrations
           migration-type: FLYWAY
