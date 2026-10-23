@@ -30,7 +30,7 @@ in any order; `everything` is the first four in one.
 | `reports` | Reports and automation | 🟢 A schema, an extension, a type, a sequence, views, a materialized view, functions, a procedure, a column and an index added. 🟠 The same kinds changed, most of them dropped as well; a trigger added, one changed and one dropped. |
 | `no-schema-change` | Greet the user | Nothing: the migrations are not touched, so nothing is drawn and no comment is posted. |
 | `broken-migration` | A nickname for every pet | The migration fails on a misspelt table name: the check fails, and the comment carries Flyway's message. |
-| `everything` | Release 5: clinics, a clean-up, the rules of the data, and reports | The first four at once: 74 changes of 47 kinds in 19 sections, those with a 🔴 open and the rest folded. |
+| `everything` | Release 5: clinics, a clean-up, the rules of the data, and reports | The first four at once: 74 changes of 47 kinds in 19 folded sections. |
 
 To open one:
 
