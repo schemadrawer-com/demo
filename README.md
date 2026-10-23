@@ -3,8 +3,9 @@
 The pet clinic of [spring-petclinic](https://github.com/spring-projects/spring-petclinic), its
 schema kept in [Flyway](https://flywaydb.org) migrations for PostgreSQL 18, and the
 [SchemaDrawer action](https://github.com/schemadrawer-com/action) commenting on every pull request
-that changes them: what the pull request changes in the schema, how risky each change is, and the
-diagram of it, with what the pull request adds in green and what it removes in red.
+that changes them: what the pull request changes in the schema, by table and by kind of object and
+coloured by how risky each change is, and the diagram of it, with what the pull request adds in
+green and what it removes in red.
 
 ## The schema
 
@@ -29,7 +30,7 @@ in any order; `everything` is the first four in one.
 | `reports` | Reports and automation | 🟢 A schema, an extension, a type, a sequence, views, a materialized view, functions, a procedure, a column and an index added. 🟠 The same kinds changed, most of them dropped as well; a trigger added, one changed and one dropped. |
 | `no-schema-change` | Greet the user | Nothing: the migrations are not touched, so nothing is drawn and no comment is posted. |
 | `broken-migration` | A nickname for every pet | The migration fails on a misspelt table name: the check fails, and the comment carries Flyway's message. |
-| `everything` | Release 5: clinics, a clean-up, the rules of the data, and reports | The first four at once: 74 changes of 47 kinds, the riskiest first and the safe ones folded away under them. |
+| `everything` | Release 5: clinics, a clean-up, the rules of the data, and reports | The first four at once: 74 changes of 47 kinds in 19 sections, those with a 🔴 open and the rest folded. |
 
 To open one:
 
