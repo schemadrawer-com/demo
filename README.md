@@ -53,7 +53,7 @@ git add migrations && git commit -m "Vets and visits belong to a clinic" && git 
 and, on a pull request, runs the action beside it:
 
 ```yaml
-      - uses: schemadrawer-com/action@v3
+      - uses: schemadrawer-com/action@v1
         with:
           sql-directory: migrations
           migration-type: FLYWAY
