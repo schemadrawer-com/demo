@@ -75,6 +75,7 @@ CREATE TABLE audit.events (
   id          BIGINT GENERATED ALWAYS AS IDENTITY PRIMARY KEY,
   number      BIGINT NOT NULL DEFAULT nextval('audit.event_number_seq'),
   table_name  TEXT NOT NULL,
+    table_name2  TEXT NOT NULL,
   row_id      INT NOT NULL,
   operation   TEXT NOT NULL,
   happened_at TIMESTAMPTZ NOT NULL DEFAULT now()
