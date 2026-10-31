@@ -25,26 +25,3 @@ jobs:
 
       - name: Build with Maven
         run: mvn --batch-mode clean verify
-
-  schema-diff:
-    # What the pull request changes in the schema, drawn and posted as a comment on it; runs
-    # beside the build, since it needs nothing of it.
-    if: github.event_name == 'pull_request'
-    runs-on: ubuntu-latest
-    permissions:
-      contents: read
-      # To comment on the pull request.
-      pull-requests: write
-      # To ask GitHub for the token that vouches for this run, sent along with the upload.
-      id-token: write
-    steps:
-      - name: Checkout source
-        uses: actions/checkout@v5
-
-      - name: Comment with the schema changes
-        uses: schemadrawer-com/action@v1
-        with:
-          sql-directory: migrations
-          migration-type: FLYWAY
-          database-type: POSTGRESQL
-          database-version: '18'

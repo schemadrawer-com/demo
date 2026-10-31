@@ -2,7 +2,7 @@
 
 The pet clinic of [spring-petclinic](https://github.com/spring-projects/spring-petclinic), its
 schema kept in [Flyway](https://flywaydb.org) migrations for PostgreSQL 18, and the
-[SchemaDrawer action](https://github.com/schemadrawer-com/action) commenting on every pull request
+[SchemaDrawer GitHub App](https://schemadrawer.com) commenting on every pull request
 that changes them: what the pull request changes in the schema, by table and by kind of object and
 coloured by how risky each change is, and the diagram of it, with what the pull request adds in
 green and what it removes in red.
@@ -48,19 +48,20 @@ cp scenarios/clinics/migrations/* migrations/
 git add migrations && git commit -m "Vets and visits belong to a clinic" && git push -u origin clinics
 ```
 
-## The workflow
+## The GitHub App
 
-[`.github/workflows/build.yml`](.github/workflows/build.yml) builds the application with Maven
-and, on a pull request, runs the action beside it:
+The SchemaDrawer app is installed on this repository, and
+[`.github/schemadrawer.yml`](.github/schemadrawer.yml) tells it what to draw:
 
 ```yaml
-      - uses: schemadrawer-com/action@v1
-        with:
-          sql-directory: migrations
-          migration-type: FLYWAY
-          database-type: POSTGRESQL
-          database-version: '18'
+sql-directory: migrations
+migration-type: FLYWAY
+database-type: POSTGRESQL
+database-version: 18
 ```
 
-The job needs `pull-requests: write` to comment and `id-token: write` for the token GitHub signs
-for the run, which goes along with the upload. No secret is needed.
+On every pull request that changes a file under `migrations`, the app runs both versions - the
+base branch's and the pull request's - draws them and what changed between them, lists the changes
+with how risky each is, and posts it all as a comment on the pull request, one comment kept up to
+date push after push, with a check run beside the commit. No workflow, no secret and no token are
+needed; [`.github/workflows/build.yml`](.github/workflows/build.yml) only builds the application.
