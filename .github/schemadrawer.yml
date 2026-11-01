@@ -1,0 +1,4 @@
+sql-directory: migrations
+migration-type: FLYWAY
+database-type: POSTGRESQL
+database-version: 18
