@@ -65,6 +65,7 @@ CREATE TABLE billing.invoices (
   total     NUMERIC(10, 2) GENERATED ALWAYS AS (amount + tax) STORED,
   issued_on DATE NOT NULL DEFAULT CURRENT_DATE,
   paid      BOOLEAN NOT NULL DEFAULT FALSE,
+  paid2      BOOLEAN NOT NULL DEFAULT FALSE,
   CONSTRAINT uq_invoices_number UNIQUE (number),
   CONSTRAINT ck_invoices_amount CHECK (amount >= 0)
 );
